@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodOrdering.Views.FirstPage"
+           xmlns:vm="clr-namespace:FoodOrdering.ViewModel"
+             xmlns:pv="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:FoodVM x:Key="vm"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+    <ContentPage.Content>
+        <Grid Margin="0,0,1,0" BackgroundColor="White" BindingContext="{StaticResource vm}" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+           
+
+            <Grid Grid.Row="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    
+                </Grid.ColumnDefinitions>
+                <Label  Grid.Row="0" Margin="0,6"
+                        FontAttributes="Italic"
+                        TextColor="DodgerBlue" FontSize="16" 
+                        Grid.Column="0" Text="Welcome"  
+                      />
+                <Label Grid.Row="1" Grid.Column="0" Margin="0,-25" FontSize="17" Text="Samson" FontAttributes="Bold"
+                      />
+                <ImageButton Source="line.png" Margin="4" BackgroundColor="Transparent" HorizontalOptions="Center"  HeightRequest="40" Grid.Row="0" Grid.Column="1" />
+                <Label Text="0" TextColor="Red" FontSize="Subtitle" Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Start"/>
+                <ImageButton Source="cart.png" Command="{Binding TotalCartCommand}" BackgroundColor="Transparent"  HeightRequest="40" Grid.Row="0" Grid.Column="2"/>
+                <ImageButton Source="logg.png" Command="{Binding SignOutCommand}" BackgroundColor="Transparent" Grid.Column="3" Grid.Row="0"  HeightRequest="40"/>
+
+            </Grid>
+            <BoxView Grid.Row="1" HorizontalOptions="Fill" HeightRequest="1" Opacity="0.5" Color="Gray"/>
+
+            <Grid Grid.Row="2" Grid.Column="0" Margin="0,1,20,19">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <SearchBar Placeholder="Search Food" Margin="0,5,20,10"
+                           HorizontalOptions="Start" VerticalOptions="Start" BackgroundColor="Transparent"  Grid.Column="0"/>
+                <ImageButton Grid.Column="1" BackgroundColor="Transparent" Source="search.png" HeightRequest="30"  WidthRequest="30"/>
+
+            </Grid>
+            <CollectionView Grid.Row="3"  HeightRequest="120" Margin="0,3,0,0" ItemsSource="{Binding Categories}"
+                          SelectionMode="Single" SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
+                            ItemsLayout="HorizontalList"  
+                          
+                            VerticalOptions="FillAndExpand"
+                          HorizontalScrollBarVisibility="Never" >
+
+                <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="0,0,15,0">
+                        <Frame HeightRequest="50"  CornerRadius="10" BackgroundColor="#feeee8" HasShadow="False" >
+                            <Image Source="{Binding Image,Mode=TwoWay}"/>
+                        </Frame>
+                            <Label Text="{Binding CategoryName,Mode=TwoWay}" FontAttributes="Bold"
+                                  HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Grid.Row="4" Text="Latest Items" FontSize="20" FontAttributes="Bold"/>
+            <CollectionView Grid.Row="5" ItemsSource="{Binding Categories}" Margin="10" VerticalScrollBarVisibility="Never"
+                            SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
+                            SelectionChangedCommand="{Binding NextCommand}" VerticalOptions="Start">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="0,15">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <pv:PancakeView Margin="0,0,10,0" 
+                                                CornerRadius="20" Grid.Row="0">
+                                    <ImageButton Source="{Binding Image1,Mode=TwoWay}" HeightRequest="220" Aspect="Fill"/>
+                                </pv:PancakeView>
+                                <Frame Grid.Row="1" Margin="20,-61,20,70"
+                                       HeightRequest="4"  BackgroundColor="Red" CornerRadius="20"
+                                       HorizontalOptions="End">
+                                    <Label Text="{Binding Price,StringFormat='₹ {0}' ,Mode=TwoWay }"
+                                           Margin="0,-8" FontSize="18" TextColor="White"
+                                           FontAttributes="Bold"/>
+                                </Frame>
+                                <Label Grid.Row="1" FontSize="18" Text="{Binding Name,Mode=TwoWay}" FontAttributes="Bold" HeightRequest="10"
+                                       HorizontalOptions="Start"/>
+                                <StackLayout Grid.Row="2" Spacing="4" Margin="1,-38,10,0" Orientation="Horizontal">
+                                    <Image Grid.Row="2"  Source="star.png" HeightRequest="16" HorizontalOptions="Start" />
+                                    <Label Grid.Row="2" VerticalOptions="Center" CharacterSpacing="1" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Grid.Row="2" Text="{Binding Rating,Mode=TwoWay}" CharacterSpacing="1" FontAttributes="Bold" FontSize="18"/>
+                                            <Span Grid.Row="2" Text="{Binding Description,Mode=TwoWay}" CharacterSpacing="1"   TextColor="Gray"/>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
+                            </Grid>
+                        </StackLayout>
+                        
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

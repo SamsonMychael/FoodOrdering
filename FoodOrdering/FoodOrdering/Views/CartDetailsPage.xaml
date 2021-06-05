@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FoodOrdering.ViewModel"
+            Padding="10"
+             Title="Delete ?"
+             x:Class="FoodOrdering.Views.CartDetailsPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:CartVM x:Key="vm"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+       
+        <Grid BindingContext="{StaticResource vm}" Margin="10"  >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="Item Details" FontAttributes="Bold" FontSize="20"
+                   VerticalOptions="Start" HorizontalOptions="Start"/>
+            <StackLayout Grid.Row="1">
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="ProductId :" TextColor="Black" FontSize="Subtitle"/>
+                    <Label Text="{Binding ProductId}" TextColor="Purple" FontSize="Subtitle" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Name :" TextColor="Black" FontSize="Subtitle"/>
+                    <Label Text="{Binding Name}" TextColor="Purple" FontSize="Subtitle"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Description :" TextColor="Black" FontSize="Subtitle"/>
+                    <Label Text="{Binding Description}" TextColor="Purple" FontSize="Subtitle" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Label Text="Price :" TextColor="Black" FontSize="Subtitle"/>
+                    <Label Text="{Binding Price}" FontSize="Subtitle" TextColor="Purple" />
+                </StackLayout>
+            </StackLayout>
+         
+
+
+            <Button Grid.Row="3" HeightRequest="50" Margin="0,20" WidthRequest="50" Text="Delete" BackgroundColor="Red" TextColor="White" CornerRadius="30" 
+                        Command="{Binding DeleteCommand}" />
+           
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

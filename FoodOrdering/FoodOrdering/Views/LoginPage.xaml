@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:renderer="clr-namespace:FoodOrdering.Renderer"
+             xmlns:vm="clr-namespace:FoodOrdering.ViewModel"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="FoodOrdering.Views.LoginPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:LoginVM x:Key="vm"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+  
+
+    <Grid BindingContext="{StaticResource vm}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <StackLayout VerticalOptions="Center" Margin="10" x:Name="LoginStackLayout" IsVisible="true">
+            <Frame HeightRequest="20" WidthRequest="60" CornerRadius="30" >
+                <renderer:CustomEntry Margin="9,-11" Placeholder="Email" Text="{Binding Email,Mode=TwoWay}"/>
+            </Frame>
+            <Frame HeightRequest="20" WidthRequest="60" CornerRadius="30" >
+                <renderer:CustomEntry Placeholder="Password" Margin="9,-11" IsPassword="True" Text="{Binding Password,Mode=TwoWay}"/>
+            </Frame>
+            <Button Text="Login" Command="{Binding LoginCommand}"
+                    CommandParameter="{Binding Login}"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Don't have an account ?" TextColor="Gray"/>
+                <Label Text="Register" FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Login_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+
+        </StackLayout>
+        
+
+            <StackLayout Margin="10"  x:Name="RegisterStackLayout" IsVisible="false" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+                <renderer:CustomEntry x:Name="LabelName" Placeholder="Name" Text="{Binding Name,Mode=TwoWay}"/>
+                <renderer:CustomEntry Placeholder="Email" Text="{Binding Email,Mode=TwoWay}"/>
+                <renderer:CustomEntry Placeholder="Password" Text="{Binding Password,Mode=TwoWay}" IsPassword="True"/>
+            <renderer:CustomEntry Placeholder="Confirm Password" Text="{Binding ConfirmPassword,Mode=TwoWay}" IsPassword="True"/>
+            <Button Text="Register" BackgroundColor="DodgerBlue" Command="{Binding RegisterCommand}" 
+                        CommandParameter="{Binding Register}" TextColor="White"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Already Have An Account ?" TextColor="Gray"/>
+                    <Label Text="Register" FontAttributes="Bold">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Register_Tapped_1"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+        
+    </Grid>
+  
+</ContentPage>
